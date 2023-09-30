@@ -66,80 +66,119 @@ So, if we need a random noun that is a small object that is edible, we could hav
 const dictionary = {
     noun: {
         person: {
-            feminine: {
-
+            //Words that don't need "A" 
+            proper: {
+                feminine: ["Hermione Granger", "The Wicked Witch", "Elvira", "Wednesday Addams", "Moaning Myrtle", "Lady Gaga"],
+                masculine: ["Harry Potter", "Ron Weasley", "Hagrid", "Dracula", "Dumbledore", "The Devil", "Batman", "Voldemort"],
+                neutral: ["someone", "everyone", "nobody", "BMO", "C-3PO"],
             },
-            masculine: {
-                
-            },
-            neutral: {
-
+            //Words that need "A" or the
+            nonProper: {
+                feminine: ["witch", "sorceress", "succubus", "woman", "lady", "girl"],
+                masculine: ["wizard", "man", "guy", "dude"],
+                neutral: ["person", "skeleton", "zombie", "vampire", "werewolf", "ghost", "software-engineer", "college student", "necromancer", "groundskeeper"],
             }
+            
         },
         place: {
+            //Words that don't need "A"  or the
             proper: {
-                small: [],
-                medium: ["Safeway"],
-                large: ["San Francisco", "New York", "Tokyo"],
+                small: ["Hagrid's Hut"],
+                medium: ["Safeway", "Dracula's castle", "Target", "Hogwarts"],
+                large: ["San Francisco", "New York", "Tokyo", "The Spirit Realm", "Outer Space", "The Underworld", "The Forbidden Forest"],
             },
+            //Words that need "A"
             nonProper: {
-                small: ["chair", "car", "train", "coffin"],
-                medium: ["hut", "basement", "bathroom", "grocery store", "college"],
-                large: ["spirit world", "underworld", "city", ""]
+                small: ["chair", "car", "train", "coffin", "closet", "bathroom", "backpack", "satchel", "locked chest"],
+                medium: ["hut", "basement", "grocery store", "college"],
+                large: ["city", "town", "village", "desert", "forest"]
             },
         },
         //Rather than small, medium, large, I might get more specific...but we'll see
         thing: {
-            small: {
-
+            //Words that don't need "A" or "The"
+            proper: {
+                small: ["The Golden Snitch", "The Elder Wand", "Merlin's Beard", "dinner"],
+                medium: [], //none yet
+                large: ["The Whomping Willow"],
             },
-            medium: {
-
-            },
-            large: {
-                
+            //Words that need "A" or "The"
+            nonProper: {
+                singular: {
+                    //Moveable, hold in hand, throwable even
+                    small: ["poison apple", "wand", "broom", "spellbook", "potion", "crystal ball", "halloween candy", "severed head", "eye of newt", "carrot", "human heart", "voodoo doll", "dragon egg", "sword"],
+                    //somewhat movable
+                    medium: ["cauldron", "tombstone", "jack-o-lantern", "car", "corpse", "skeleton", "pumpkin"],
+                    //immovable
+                    large: ["tree", "monolith", "boulder", "ritual circle", "bonfire", "pile of bones"]
+                },
+                plural: {
+                    small: ["magic mushrooms", "potions", "eggs", "crystal balls", "bones", "slugs", "spiders", "cobwebs", "scrolls", "halloween candy", "hippogriff feathers", "entrails"],
+                    medium: ["pumpkins", "tombstones", "horcruxes", "brooms", "cauldrons", "jack-o-lanterns", "corpses", "severed limbs"],
+                    large: ["trees", "monoliths", "boulders", "bone piles", "statues", "monuments", "buildings"]
+                },
             }
+        
         },
         animal: {
-
+            singular: ["cat", "dog", "spider", "unicorn", "frog", "owl", "bug"],
+            plural: ["cats", "dogs", "spiders", "unicorns", "frogs", "owls", "bugs"]
         },
     },
     adjective: {
-        negTone: {
-            
+        person: {
+            negTone: ["delicious", "intelligent", "beautiful", "amazing", "hilarious", "great", "magical", "mythical", "generous", "kind", "attractive"],
+            neuTone: ["green", "blue", "purple", "glowing", "tall", "short", "boring", "normal", "average"],
+            posTone: ["stupid", "ugly", "smelly", "disgusting", "horrible", "outrageous", "awful", "weird", "mean", "selfish", "evil", "repulsive"]
         },
-        neuTone: {
-
-        },
-        posTone: {
-
+        nonPerson: {
+            negTone: ["delicious", "beautiful", "amazing", "hilarious", "great", "magical", "mythical"],
+            neuTone: ["green", "blue", "purple", "glowing", "tall", "short", "boring", "normal", "average"],
+            posTone: ["stupid", "ugly", "smelly", "disgusting", "horrible", "outrageous", "awful", "weird", "mean", "evil", "repulsive"]
         }
     },
 
 
     //For now, I think I will only use simple past, present, and future tense. See: https://www.grammarly.com/blog/verb-tenses/#:~:text=The%20three%20main%20verb%20tenses,get%20twelve%20unique%20verb%20tenses.
+    //I also need to think about verbs that happen to an object, versus ones that don't. ex: you don't breathe an apple, but you do eat an apple
     verb: {
-        pasTense: {
-
+        //He/she/it/that/proper
+        singularThird: {
+            //Needs object (i.e. Looked for - searched for - )
+            needsObj: {
+                pasTense: ["threw", "looked for", "found", "discovered", "hid", "stole", "consumed", "used", "took", "gave away"],
+                presTense: ["throws", "looks for", "finds", "discovers", "hides", "steals", "consumes", "uses", "takes", "gives away"],
+                fuTense: ["will throw", "will look for", "will find", "will discover", "will steal", "will consume", "will use", "will take", "will give away"],
+            },
+            noObj: {
+                pasTense: ["laughed", "slept", "ate", "cried", "casted a spell", "performed a ritual", "rested", "opened a portal", "saw the future", "exercised", "did arts and crafts", "brewed potions"],
+                presTense: ["laughs", "sleeps", "eats", "cries", "casts spells", "performs rituals", "rests", "opens portals", "sees the future", "exercises", "does arts and crafts", "brews potions"],
+                fuTense: ["will laugh", "will sleep", "will eat", "will cry", "will cast a spell", "will perform a ritual", "will rest", "will open a portal", "will see the future", "will exercise", "will do arts and crafts", "will brew potions"],
+            }
         },
-        presTense: {
-
-        },
-        fuTense: {
-
+        //I/you/we/they
+        plural: {
+            needsObj: {
+                pasTense: ["threw", "looked for", "found", "discovered", "hid", "stole", "consumed", "used", "took", "gave away"],
+                presTense: ["throw", "look for", "find", "discover", "hide", "steal", "consume", "use", "take", "give away"],
+                fuTense: ["will throw", "will look for", "will find", "will discover", "will steal", "will consume", "will use", "will take", "will give away"],
+            },
+            noObj: {
+                pasTense: ["laughed", "slept", "ate", "cried", "casted a spell", "performed a ritual", "rested", "opened a portal", "saw the future", "exercised", "did arts and crafts", "brewed potions"],
+                presTense: ["laugh", "sleep", "eat", "cry", "cast a spell", "perform rituals", "rest", "open portals", "see the future", "exercise", "do arts and crafts", "brew potions"],
+                fuTense: ["will laugh", "will sleep", "will eat", "will cry", "will cast a spell", "will perform a ritual", "will rest", "will open a portal", "will see the future", "will exercise", "will do arts and crafts", "will brew potions"],
+            }
         }
     },
 
     adverb: {
         nonTemporal: {
-            negTone: {
-
-            }
+            negTone: ["slowly", "stupidly", "clumsily", "gradually", "terribly"],
+            posTone: ["quickly", "intelligently", "skillfully", "rapidly", "suddenly", "wonderfully"],
         },
         temporal: {
-            posTone: {
-
-            }
+            negTone: ["never", "rarely", "sometimes"],
+            posTone: ["usually", "frequently", "often", "always"],
         }
     },
 };
