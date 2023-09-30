@@ -182,3 +182,31 @@ const dictionary = {
         }
     },
 };
+
+//50 50 chance of true or false
+const randBool = () => {
+    let num = Math.floor(Math.random() * 2);
+    if (num) {
+        return true;
+    }
+    return false;
+}
+
+const generateSentence = () => {
+    //Needs to combine a subject and a predicate
+    //Needs to keep track of the tense, plurality of subject and the predicate, and choose random words accordingly.
+}
+
+const generateSubject = () => {
+    //Needs to generate a subject
+    
+}
+
+const generatePredicate = () => {
+    //Needs to generate a predicate
+}
+
+//Testing
+// for (let i = 0; i < 50; i++) {
+//     console.log(randBool());
+// }
