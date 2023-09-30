@@ -151,9 +151,9 @@ const dictionary = {
                 fuTense: ["will throw", "will look for", "will find", "will discover", "will steal", "will consume", "will use", "will take", "will give away"],
             },
             noObj: {
-                pasTense: ["laughed", "slept", "ate", "cried", "casted a spell", "performed a ritual", "rested", "opened a portal", "saw the future", "exercised", "did arts and crafts", "brewed potions"],
-                presTense: ["laughs", "sleeps", "eats", "cries", "casts spells", "performs rituals", "rests", "opens portals", "sees the future", "exercises", "does arts and crafts", "brews potions"],
-                fuTense: ["will laugh", "will sleep", "will eat", "will cry", "will cast a spell", "will perform a ritual", "will rest", "will open a portal", "will see the future", "will exercise", "will do arts and crafts", "will brew potions"],
+                pasTense: ["was", "laughed", "slept", "ate", "cried", "casted a spell", "performed a ritual", "rested", "opened a portal", "saw the future", "exercised", "did arts and crafts", "brewed potions"],
+                presTense: ["is", "laughs", "sleeps", "eats", "cries", "casts spells", "performs rituals", "rests", "opens portals", "sees the future", "exercises", "does arts and crafts", "brews potions"],
+                fuTense: ["will be", "will laugh", "will sleep", "will eat", "will cry", "will cast a spell", "will perform a ritual", "will rest", "will open a portal", "will see the future", "will exercise", "will do arts and crafts", "will brew potions"],
             }
         },
         //I/you/we/they
@@ -205,28 +205,35 @@ const randomTense = () => {
     return tense;
 }
 
+const randFromArray = (array) => {
+    let i = Math.floor(Math.random() * array.length);
+    return array[i];
+}
+
 const generateSentence = () => {
     //Needs to combine a subject and a predicate
     //Needs to keep track of the tense, plurality of subject and the predicate, and choose random words accordingly.
     
     let tense = randomTense();
-    let subjectIsPlural = randBool();
-    let predicateIsPlural = randBool();
+    let isSubjectPlural = randBool();
+    let isPredicatePlural = randBool();
 
 
 
 }
 
-const generateSubject = () => {
+const generateSubject = (isSubjectPlural) => {
     //Needs to generate a subject
     
 }
 
-const generatePredicate = (tense,) => {
+const generatePredicate = (tense, isPredicatePlural) => {
     //Needs to generate a predicate
 }
 
+
 //Testing
-for (let i = 0; i < 50; i++) {
-    console.log(Math.floor(Math.random() * 3));
-}
+// let testarr = [1,2,3,4,5]
+// for (let i = 0; i < 50; i++) {
+//     console.log(randFromArray(testarr));
+// }
