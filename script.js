@@ -66,19 +66,23 @@ So, if we need a random noun that is a small object that is edible, we could hav
 const dictionary = {
     noun: {
         person: {
-            //Words that don't need "A" 
-            proper: {
-                feminine: ["Hermione Granger", "The Wicked Witch", "Elvira", "Wednesday Addams", "Moaning Myrtle", "Lady Gaga"],
-                masculine: ["Harry Potter", "Ron Weasley", "Hagrid", "Dracula", "Dumbledore", "The Devil", "Batman", "Voldemort"],
-                neutral: ["someone", "everyone", "nobody", "BMO", "C-3PO"],
+            singular: {
+                //Words that don't need "A" 
+                proper: {
+                    feminine: ["Hermione Granger", "The Wicked Witch", "Elvira", "Wednesday Addams", "Moaning Myrtle", "Lady Gaga"],
+                    masculine: ["Harry Potter", "Ron Weasley", "Hagrid", "Dracula", "Dumbledore", "The Devil", "Batman", "Voldemort"],
+                    neutral: ["someone", "everyone", "nobody", "BMO", "C-3PO"],
+                },
+                //Words that need "A" or the
+                nonProper: {
+                    feminine: ["witch", "sorceress", "succubus", "woman", "lady", "girl"],
+                    masculine: ["wizard", "man", "guy", "dude"],
+                    neutral: ["person", "skeleton", "zombie", "vampire", "werewolf", "ghost", "software-engineer", "college student", "necromancer", "groundskeeper"],
+                }
             },
-            //Words that need "A" or the
-            nonProper: {
-                feminine: ["witch", "sorceress", "succubus", "woman", "lady", "girl"],
-                masculine: ["wizard", "man", "guy", "dude"],
-                neutral: ["person", "skeleton", "zombie", "vampire", "werewolf", "ghost", "software-engineer", "college student", "necromancer", "groundskeeper"],
-            }
-            
+            //Words that don't need "A"
+            //plural words behave the same even if they are proper, pronouns are always "they, we or you"
+            plural: ["witches", "sorceresses", "succubi", "women", "ladies", "girls", "wizards", "men", "guys", "dudes", "people", "skeletons", "zombies", "vampires", "werewolves", "ghosts", "software-enginees", "college students", "necromancers", "groundskeepers"]
         },
         place: {
             //Words that don't need "A"  or the
@@ -195,9 +199,9 @@ const randBool = () => {
 const randomTense = () => {
     let tense = "present";
     let num = Math.floor(Math.random() * 3);
-    if (num = 0) {
+    if (num == 0) {
         tense = "past";
-    } else if (num = 1) {
+    } else if (num == 1) {
         tense = "present";
     } else {
         tense = "future";
@@ -205,9 +209,45 @@ const randomTense = () => {
     return tense;
 }
 
-const randFromArray = (array) => {
+const getRandFromArray = (array) => {
     let i = Math.floor(Math.random() * array.length);
     return array[i];
+}
+
+const randomIdentity = () => {
+    let identity = "neutral";
+    let num = Math.floor(Math.random() * 2);
+    if (num == 0) {
+        identity = "feminine";
+    } else if (num == 1) {
+        identity = "neutral";
+    } else {
+        identity = "masculine";
+    }
+    return identity;
+}
+
+const generatePronouns = (identity, isSubjectPlural) => {
+    let pronouns;
+    if (isSubjectPlural) {
+        return ["they", "them", "their", "theirs"];
+    } else {
+        if (identity == "masculine") {
+            pronouns = ["he", "him", "his", "his"];
+        } else if (identity == "feminine") {
+            pronouns = ["she", "her", "her", "hers"];
+        } else {
+            pronouns = ["they", "them", "their", "theirs"];
+        }
+        if (identity != "neutral") {
+            //One in ten chance pronouns will be neutral
+            let num = Math.floor(Math.random() * 11);
+            if (num == 0) {
+                pronouns = ["they", "them", "their", "theirs"]
+            }
+        }
+    }
+    return pronouns;
 }
 
 const generateSentence = () => {
@@ -217,14 +257,18 @@ const generateSentence = () => {
     let tense = randomTense();
     let isSubjectPlural = randBool();
     let isPredicatePlural = randBool();
-
-
-
+    let identity = randomIdentity();
+    let pronoun = generatePronouns(identity, isSubjectPlural);
 }
 
+
+//For now, subjects will always be people
 const generateSubject = (isSubjectPlural) => {
     //Needs to generate a subject
-    
+    if (isSubjectPlural) {
+        return getRandFromArray(dictionary.noun.person.plural);
+    } else {
+    }
 }
 
 const generatePredicate = (tense, isPredicatePlural) => {
@@ -233,7 +277,7 @@ const generatePredicate = (tense, isPredicatePlural) => {
 
 
 //Testing
-// let testarr = [1,2,3,4,5]
-// for (let i = 0; i < 50; i++) {
-//     console.log(randFromArray(testarr));
-// }
+let testarr = [1,2,3,4,5]
+for (let i = 0; i < 50; i++) {
+    console.log(Math.floor(Math.random() * 11));
+}
