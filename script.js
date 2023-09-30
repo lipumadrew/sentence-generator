@@ -192,9 +192,29 @@ const randBool = () => {
     return false;
 }
 
+const randomTense = () => {
+    let tense = "present";
+    let num = Math.floor(Math.random() * 3);
+    if (num = 0) {
+        tense = "past";
+    } else if (num = 1) {
+        tense = "present";
+    } else {
+        tense = "future";
+    }
+    return tense;
+}
+
 const generateSentence = () => {
     //Needs to combine a subject and a predicate
     //Needs to keep track of the tense, plurality of subject and the predicate, and choose random words accordingly.
+    
+    let tense = randomTense();
+    let subjectIsPlural = randBool();
+    let predicateIsPlural = randBool();
+
+
+
 }
 
 const generateSubject = () => {
@@ -202,11 +222,11 @@ const generateSubject = () => {
     
 }
 
-const generatePredicate = () => {
+const generatePredicate = (tense,) => {
     //Needs to generate a predicate
 }
 
 //Testing
-// for (let i = 0; i < 50; i++) {
-//     console.log(randBool());
-// }
+for (let i = 0; i < 50; i++) {
+    console.log(Math.floor(Math.random() * 3));
+}
