@@ -216,7 +216,7 @@ const getRandFromArray = (array) => {
 
 const randomIdentity = () => {
     let identity = "neutral";
-    let num = Math.floor(Math.random() * 2);
+    let num = Math.floor(Math.random() * 3);
     if (num == 0) {
         identity = "feminine";
     } else if (num == 1) {
@@ -277,7 +277,7 @@ const generatePredicate = (tense, isPredicatePlural) => {
 
 
 //Testing
-let testarr = [1,2,3,4,5]
-for (let i = 0; i < 50; i++) {
-    console.log(Math.floor(Math.random() * 11));
-}
+// let testarr = [1,2,3,4,5]
+// for (let i = 0; i < 50; i++) {
+//     console.log(generatePronouns(randomIdentity(), false));
+// }
