@@ -82,7 +82,7 @@ const dictionary = {
             },
             //Words that don't need "A"
             //plural words behave the same even if they are proper, pronouns are always "they, we or you"
-            plural: ["witches", "sorceresses", "succubi", "women", "ladies", "girls", "wizards", "men", "guys", "dudes", "people", "skeletons", "zombies", "vampires", "werewolves", "ghosts", "software-enginees", "college students", "necromancers", "groundskeepers"]
+            plural: ["witches", "sorceresses", "succubi", "women", "ladies", "girls", "wizards", "men", "guys", "dudes", "people", "skeletons", "zombies", "vampires", "werewolves", "ghosts", "software-engineers", "college students", "necromancers", "groundskeepers"]
         },
         place: {
             //Words that don't need "A"  or the
@@ -257,18 +257,26 @@ const generateSentence = () => {
     let tense = randomTense();
     let isSubjectPlural = randBool();
     let isPredicatePlural = randBool();
+    let isProper = randBool();
     let identity = randomIdentity();
     let pronoun = generatePronouns(identity, isSubjectPlural);
 }
 
 
 //For now, subjects will always be people
-const generateSubject = (isSubjectPlural) => {
-    //Needs to generate a subject
+const generateSubject = (isSubjectPlural, identity, isProper) => {
+    //Needs to generate a subject i.e. the person
     if (isSubjectPlural) {
         return getRandFromArray(dictionary.noun.person.plural);
     } else {
+        if (isProper) {
+            return getRandFromArray(dictionary.noun.person.singular["proper"][identity]);
+        } else {
+            return getRandFromArray(dictionary.noun.person.singular["nonProper"][identity]);
+        }
     }
+
+
 }
 
 const generatePredicate = (tense, isPredicatePlural) => {
@@ -277,7 +285,7 @@ const generatePredicate = (tense, isPredicatePlural) => {
 
 
 //Testing
-// let testarr = [1,2,3,4,5]
-// for (let i = 0; i < 50; i++) {
-//     console.log(generatePronouns(randomIdentity(), false));
-// }
+let testarr = [1,2,3,4,5]
+for (let i = 0; i < 50; i++) {
+    console.log(generateSubject(randBool(), randomIdentity(), randBool()));
+}
