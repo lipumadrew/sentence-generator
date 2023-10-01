@@ -412,7 +412,7 @@ const possiblyRandomizeFutureTense = (word) => {
 const possibleRandomizeContinuousTense = (word) => {
     if (randBool()) {
         if (word.includes(" is ")) {
-            let replacers = [" was ", " had been ", " has been ", " hasn't been ", " has not been ", " was not ", " wasn't ", " hadn't been ", " will have been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " should be ", " would be", " could be ", " would have been ", " could have been ", " should have been ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
+            let replacers = [" was ", " had been ", " has been ", " hasn't been ", " has not been ", " was not ", " wasn't ", " hadn't been ", " will have been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " should be ", " would be ", " could be ", " would have been ", " could have been ", " should have been ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
             return word.replace(" is ", getRandFromArray(replacers));
         } else {
             let replacers = [" were ", " had been ", " have been ", " haven't been ", " have not been ", " were not ", " weren't ", " hadn't been ", " will have been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " should be ", " would be ", " could be ", " would have been ", " could have been ", " should have been ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
@@ -422,6 +422,18 @@ const possibleRandomizeContinuousTense = (word) => {
     return word;
 }
 
+const isProper = () => {
+    let num = Math.floor(Math.random() * 4);
+    if (num == 0) {
+        return true;
+    }
+    return false;
+}
+
+const isCompound = () => {
+    
+}
+
 const generateSentence = () => {
     //Needs to combine a subject and a predicate
     //Needs to keep track of the tense, plurality of subject and the predicate, and choose random words accordingly.
@@ -429,7 +441,7 @@ const generateSentence = () => {
     let tense = randomTense();
     let isSubjectPlural = randBool();
     let isPredicatePlural = randBool();
-    let isSubjectProper = randBool();
+    let isSubjectProper = isProper();
     let identity = randomIdentity();
     let pronoun = generatePronouns(identity, isSubjectPlural);
     let hasObject = randBool();
@@ -439,20 +451,21 @@ const generateSentence = () => {
 
     let hasPlace = randBool();
     let isPlaceProper = randBool();
-
+    let subjectTone = getTone();
+    let predicateTone = getTone();
     let place = null;
 
 
     let subject = generateSubject(isSubjectPlural, identity, isSubjectProper);
-    subject = possiblyAddAdjective(subject, getTone(), false);
-    subject = possiblyAddAdverb(subject, getTone(), getTemporal());
+    subject = possiblyAddAdjective(subject, subjectTone, false);
+    subject = possiblyAddAdverb(subject, subjectTone, getTemporal());
     
-    let predicate = generatePredicate(tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper);
+    let predicate = generatePredicate(tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper, predicateTone);
     let sentence = generateArticle(subject, isSubjectPlural, isSubjectProper) + subject + " " + predicate;
 
     if (hasPlace) {
         place = getPlace(isPlaceProper, objectSize);
-        sentence += " in " + generateArticle(place, false, isPlaceProper) + possiblyAddAdjective(place, getTone(), true);
+        sentence += " in " + generateArticle(place, false, isPlaceProper) + possiblyAddAdjective(place, predicateTone, true);
     }
 
     if (tense == "fuTense") {
@@ -461,7 +474,7 @@ const generateSentence = () => {
         sentence = possibleRandomizeContinuousTense(sentence);
     }
     
-
+    console.log()
     return formatSentence(sentence);
 }
 
@@ -504,7 +517,7 @@ const generateSubject = (isSubjectPlural, identity, isProper) => {
 
 
 
-const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper) => {
+const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper, predicateTone) => {
     //Needs to generate a predicate
     let objectPlurality
     let properProperty;
@@ -528,7 +541,7 @@ const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObje
             // verb the/some/ objects
             verb = getRandFromArray(dictionary.verb.plural.needsObj[objectSize][tense])
             object = getRandFromArray(dictionary.noun.thing[properProperty][objectPlurality][objectSize])
-            object = possiblyAddAdjective(object, getTone(), true);
+            object = possiblyAddAdjective(object, predicateTone, true);
             return verb + " " + generateArticle(object, isObjectPlural, isObjectProper) + object;
         } else {
             verb = getRandFromArray(dictionary.verb.plural.noObj[tense]);
@@ -540,7 +553,7 @@ const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObje
             // verb a/the/an object
             verb = getRandFromArray(dictionary.verb.singularThird.needsObj[objectSize][tense]);
             object = getRandFromArray(dictionary.noun.thing[properProperty][objectPlurality][objectSize])
-            object = possiblyAddAdjective(object, getTone(), true);
+            object = possiblyAddAdjective(object, predicateTone, true);
             return verb + " " + generateArticle(object, isObjectPlural, isObjectProper) + object
         } else {
             verb = getRandFromArray(dictionary.verb.singularThird.noObj[tense])
