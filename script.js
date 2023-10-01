@@ -65,6 +65,10 @@ So, if we need a random noun that is a small object that is edible, we could hav
 //Here we go....
 const dictionary = {
     noun: {
+        animal: {
+            singular: ["cat", "dog", "spider", "unicorn", "frog", "owl", "bug", "dragon", "fairy", "centaur"],
+            plural: ["cats", "dogs", "spiders", "unicorns", "frogs", "owls", "bugs", "centaur"]
+        },
         person: {
             singular: {
                 //Words that don't need "A" 
@@ -77,25 +81,25 @@ const dictionary = {
                 nonProper: {
                     feminine: ["witch", "sorceress", "succubus", "mother", "nun", "daughter", "priestess", "actor", "aunt", "sister", "woman", "lady", "girl", "enchantress"],
                     masculine: ["wizard", "man", "grandpa", "uncle", "father", "monk", "son", "guy", "priest", "brother", "actress", "dude", "fellow", "druid", "gentleman", "headsman"],
-                    neutral: ["police officer", "firefighter", "surgeon", "teacher", "spirit", "person", "magician", "executioner", "skeleton", "zombie", "vampire", "werewolf", "mummy", "ghost", "software-engineer", "college student", "necromancer", "groundskeeper"],
+                    neutral: ["police officer", "demon", "apparition", "goblin", "creature", "shadow-figure", "death eater", "firefighter", "headmaster", "surgeon", "teacher", "spirit", "person", "magician", "executioner", "skeleton", "zombie", "vampire", "werewolf", "mummy", "ghost", "software-engineer", "college student", "necromancer", "groundskeeper"],
                 }
             },
             //Words that don't need "A"
             //plural words behave the same even if they are proper, pronouns are always "they, we or you"
-            plural: ["doctors", "spirits", "ghouls", "ghosts", "witches", "sorceresses", "occultists", "succubi", "women", "ladies", "girls", "wizards", "men", "guys", "dudes", "people", "undead", "skeletons", "zombies", "vampires", "werewolves", "software-engineers", "college students", "necromancers", "groundskeepers"]
+            plural: ["doctors", "spirits", "demons", "ghouls", "ghosts", "goblin", "dementors", "death eaters", "creatures", "shadow figures", "apparitions", "witches", "sorceresses", "occultists", "succubi", "women", "ladies", "girls", "wizards", "men", "guys", "dudes", "people", "undead", "skeletons", "zombies", "vampires", "werewolves", "software-engineers", "college students", "necromancers", "groundskeepers"]
         },
         place: {
             //Words that don't need "A"  or the
             proper: {
-                small: ["Hagrid's Hut", "The Room of Requirement", "The Chamber of Secrets"],
+                small: ["Hagrid's Hut", "The Room of Requirement", "The Chamber of Secrets", "The Great Hall", "The Prefects' Bathroom"],
                 medium: ["Safeway", "Dracula's castle", "Target", "Hogwarts", "Hogsmeade", "Azkaban", "Kaer Morhen"],
                 large: ["mountains", "woods", "San Francisco", "New York", "Tokyo", "London", "The Spirit Realm", "Outer Space", "The Underworld", "The Forbidden Forest", "The Upside Down"],
             },
             //Words that need "A"
             nonProper: {
-                small: ["chair", "car", "train", "bus", "coffin", "closet", "backpack", "satchel", "locked chest", "cage", "jail cell", "cabinet", "suitcase"],
+                small: ["chair", "car", "train", "bus", "coffin", "closet", "backpack", "satchel", "locked chest", "cage", "jail cell", "cabinet", "suitcase", "tent", "hut", "burrow"],
                 medium: ["hut", "shack", "basement", "grocery store", "college", "secret passage", "classroom", "bathroom", "summoning circle", "graveyard", "hospital", "operating room"],
-                large: ["city", "town", "village", "desert", "forest", "ruin", "temple", "tomb", "burial site", "graveyard", "crater", "suburb"]
+                large: ["city", "town", "village", "desert", "forest", "ruin", "temple", "tomb", "burial site", "graveyard", "crater", "suburb", "crypt", "cave", "passageway"]
             },
         },
         //Rather than small, medium, large, I might get more specific...but we'll see
@@ -103,13 +107,13 @@ const dictionary = {
             //Words that don't need "A" or "The"
             proper: {
                 singular: {
-                    small: ["The Golden Snitch", "The Elder Wand", "Merlin's Beard", "The Sorcerer's Stone"],
-                    medium: ["The Nimbus 2000", "The Marauder's Map"],
-                    large: ["The Whomping Willow", "The Shrieking Shack"],
+                    small: ["The Golden Snitch", "The Elder Wand", "Merlin's Beard", "The Sorcerer's Stone", "The Philosopher's Stone", "Ravenclaw's Diadem", "Slytherin's Locket", "Hufflepuff's Cup"],
+                    medium: ["The Nimbus 2000", "The Marauder's Map", "The Sorting Hat", "The Goblet of Fire", "The Sword of Gryffindor"],
+                    large: ["The Whomping Willow", "The Shrieking Shack", "The Moon", "Earth", "Neptune", "Mars", "Mercury", "Uranus", "Venus"],
                 },
                 plural: {
-                    small: ["The Rings of Power", "Chaos Emeralds"],
-                    medium: ["The Deathly Hallows", "The Elder Scrolls"],
+                    small: ["The Rings of Power", "Chaos Emeralds", "Silmarils"],
+                    medium: ["The Deathly Hallows", "The Elder Scrolls", ],
                     large: ["The Standing Stones", "Places of Power"]
                 }
             },
@@ -117,9 +121,9 @@ const dictionary = {
             nonProper: {
                 singular: {
                     //Moveable, hold in hand, throwable even
-                    small: ["ingredient", "poison apple", "wand", "tumor", "broom", "spellbook", "potion", "crystal ball", "taro card", "halloween candy", "severed head", "eye of newt", "carrot", "human heart", "voodoo doll", "dragon egg", "sword"],
+                    small: ["ingredient","poison apple", "wand", "tumor", "broom", "spellbook", "potion", "crystal ball", "tarot card", "halloween candy", "severed head", "eye of newt", "carrot", "human heart", "voodoo doll", "dragon egg", "sword"],
                     //somewhat movable
-                    medium: ["cauldron", "tombstone", "portal", "jack-o-lantern", "corpse", "skeleton", "pumpkin", "dead body", "bookcase"],
+                    medium: ["cauldron", "staircaise", "tombstone", "portal", "jack-o-lantern", "corpse", "skeleton", "pumpkin", "dead body", "bookcase",],
                     //immovable
                     large: ["tree", "monolith", "sinkhole", "boulder", "pile of bones", "statue", "spire", "monument", "tar pit", "ritual site", "altar", "cataclysm","interdimensional rift"]
                 },
@@ -131,21 +135,17 @@ const dictionary = {
             }
         
         },
-        // animal: {
-        //     singular: ["cat", "dog", "spider", "unicorn", "frog", "owl", "bug"],
-        //     plural: ["cats", "dogs", "spiders", "unicorns", "frogs", "owls", "bugs"]
-        // },
     },
     adjective: {
         person: {
-            posTone: ["charismatic", "healthy", "smart", "intelligent", "good-looking", "blessed", "talented", "bright", "beautiful", "amazing", "hilarious", "great", "magical", "mythical", "generous", "kind", "attractive", "perfect", "flirty"],
-            neuTone: ["tall", "short", "boring", "normal", "average", "bewitched", "regular", "chubby", "hungry", "thirsty", "tired", "focused", "typical", "preoccupied"],
-            negTone: ["socially-awkward", "sick", "unhealthy", "selfish", "creepy", "cruel", "possessed", "spooky", "stupid", "ugly", "smelly", "disgusting", "horrible", "outrageous", "awful", "weird", "mean", "selfish", "evil", "repulsive", "suspicious", "wicked"]
+            posTone: ["good", "charismatic", "healthy", "smart", "intelligent", "good-looking", "blessed", "talented", "bright", "beautiful", "amazing", "hilarious", "great", "magical", "mythical", "generous", "kind", "attractive", "perfect", "flirty"],
+            neuTone: ["tall", "short", "boring", "normal", "random", "peculiar","average", "bewitched", "regular", "chubby", "hungry", "thirsty", "tired", "focused", "typical", "preoccupied", "bored", "oblivious"],
+            negTone: ["putrid", "socially-awkward", "sick", "unhealthy", "selfish", "creepy", "cruel", "possessed", "spooky", "stupid", "ugly", "smelly", "disgusting", "horrible", "outrageous", "awful", "weird", "mean", "selfish", "evil", "repulsive", "suspicious", "wicked"]
         },
         nonPerson: {
             posTone: ["delicious", "beautiful", "neat", "shiny", "amazing", "sacred", "enchanted", "great", "magical", "mythical", "perfect"],
-            neuTone: ["green", "blue", "purple", "black", "red", "yellow", "luminous", "tall", "short", "boring", "normal", "average"],
-            negTone: ["stupid", "ugly", "smelly", "poisonous", "toxic", "spooky", "creepy", "cursed", "haunted", "disgusting", "horrible", "outrageous", "awful", "weird", "evil", "repulsive", "suspicious", "wicked"]
+            neuTone: ["green", "blue", "purple", "black", "red", "random", "peculiar", "yellow", "luminous", "tall", "short", "boring", "normal", "average", "unique", "interesting", "golden", "sturdy", "fragile", "sharp"],
+            negTone: ["putrid", "stupid", "ugly", "smelly", "poisonous", "toxic", "spooky", "creepy", "cursed", "haunted", "disgusting", "horrible", "outrageous", "awful", "weird", "evil", "repulsive", "suspicious", "wicked"]
         }
     },
 
@@ -158,26 +158,26 @@ const dictionary = {
             //Needs object (i.e. Looked for - searched for - )
             needsObj: {
                 small: {
-                    conTense: ["is enchanting","is repairing", "is cursing", "is having", "is looking for", "is consuming", "is taking", "is discovering", "is finding", "is giving away", "is transfiguring"],
-                    pasTense: ["enchanted", "repaired", "cursed", "had", "threw", "looked for", "consumed", "used", "took", "hid", "discovered", "found", "gave away", "transfigured"],
-                    presTense: ["enchants", "repairs", "curses", "has", "throws", "looks for", "finds", "discovers", "hides", "steals", "consumes", "uses", "takes", "gives away", "transfigures"],
-                    fuTense: ["will enchant", "will repair", "will curse", "will have", "will throw", "will look for", "will find", "will discover", "will steal", "will consume", "will use", "will take", "will give away", "will transfigure"]
+                    conTense: ["is selling","is destroying","is enchanting","is repairing", "is cursing", "is having", "is looking for", "is consuming", "is taking", "is discovering", "is finding", "is giving away", "is transfiguring"],
+                    pasTense: ["sold", "destroyed", "enchanted", "repaired", "cursed", "had", "threw", "looked for", "consumed", "used", "took", "hid", "discovered", "found", "gave away", "transfigured"],
+                    presTense: ["sells", "destroys", "enchants", "repairs", "curses", "has", "throws", "looks for", "finds", "discovers", "hides", "steals", "consumes", "uses", "takes", "gives away", "transfigures"],
+                    fuTense: ["will sell", "will destroy", "will enchant", "will repair", "will curse", "will have", "will throw", "will look for", "will find", "will discover", "will steal", "will consume", "will use", "will take", "will give away", "will transfigure"]
                 },
                 medium: {
-                    conTense: ["is enchanting","is repairing","is hiding", "is looking for", "is using", "is discovering", "is finding", "is stealing", "is consuming", "is giving away", "is transfiguring"],
-                    pasTense: ["enchanted","repaired", "hid", "looked for", "used", "discovered", "found", "consumed", "stole", "gave away", "transfigured"],
-                    presTense: ["enchants","repairs","looks for", "finds", "discovers", "hides", "steals", "uses", "takes", "gives away", "transfigures"],
-                    fuTense: ["will enchant","will repair", "will throw", "will look for", "will find", "will discover", "will steal", "will use", "will take", "will transfigure"]
+                    conTense: ["is selling", "is destroying","is enchanting","is repairing","is hiding", "is looking for", "is using", "is discovering", "is finding", "is stealing", "is consuming", "is giving away", "is transfiguring"],
+                    pasTense: ["sold","destroyed", "enchanted","repaired", "hid", "looked for", "used", "discovered", "found", "consumed", "stole", "gave away", "transfigured"],
+                    presTense: ["sells", "destroys", "enchants","repairs","looks for", "finds", "discovers", "hides", "steals", "uses", "takes", "gives away", "transfigures"],
+                    fuTense: ["will sell","will destroy", "will enchant","will repair", "will throw", "will look for", "will find", "will discover", "will steal", "will use", "will take", "will transfigure"]
                 },
                 large: {
                     conTense: ["is enchanting", "is repairing", "is looking for", "is finding", "is discovering", "is exploring", "is navigating", "is avoiding"],
-                    pasTense: ["enchanted", "repaired", "looked for", "found", "discovered", "saw", "explored", "navigated", "avoided"],
-                    presTense: ["enchants", "repairs", "looks for", "finds", "discovers", "sees", "explores", "navigates", "avoids"],
-                    fuTense: ["will enchant", "will repair", "will look for", "will find", "will discover", "will see", "will explore", "will navigate", "will avoid"]
+                    pasTense: ["destroyed", "enchanted", "repaired", "looked for", "found", "discovered", "saw", "explored", "navigated", "avoided"],
+                    presTense: ["destroys", "enchants", "repairs", "looks for", "finds", "discovers", "sees", "explores", "navigates", "avoids"],
+                    fuTense: ["will destroy", "will enchant", "will repair", "will look for", "will find", "will discover", "will see", "will explore", "will navigate", "will avoid"]
                 }
             },
             noObj: {
-                conTense: ["is having visions", "is performing surgery","is placing a curse", "is dying", "is panicking", "is laughing", "is eating", "is crying", "is casting a spell", "is performing a ritual", "is resting", "is opening a portal", "is seeing the future", "is exercising", "is doing arts and crafts", "is brewing potions"],
+                conTense: ["is sleeping","is having visions", "is performing surgery","is placing a curse", "is dying", "is panicking", "is laughing", "is eating", "is crying", "is casting a spell", "is performing a ritual", "is resting", "is opening a portal", "is seeing the future", "is exercising", "is doing arts and crafts", "is brewing potions"],
                 pasTense: ["had visions", "performed surgery", "placed a curse", "died", "panicked", "was", "laughed", "slept", "ate", "cried", "casted a spell", "performed a ritual", "rested", "opened a portal", "saw the future", "exercised", "did arts and crafts", "brewed potions"],
                 presTense: ["has visions", "performs surgery", "places a curse", "dies", "panicks", "is", "laughs", "sleeps", "eats", "cries", "casts spells", "performs rituals", "rests", "opens portals", "sees the future", "exercises", "does arts and crafts", "brews potions"],
                 fuTense: ["will have visions", "will perform surgery", "will place a curse", "will die", "will panick", "will be", "will laugh", "will sleep", "will eat", "will cry", "will cast a spell", "will perform a ritual", "will rest", "will open a portal", "will see the future", "will exercise", "will do arts and crafts", "will brew potions"],
@@ -187,26 +187,26 @@ const dictionary = {
         plural: {
             needsObj: {
                 small: {
-                    conTense: ["are enchanting","are repairing","are cursing", "are having", "are throwing", "are looking for", "are consuming", "are using", "are taking", "are hiding", "are discovering", "are finding", "are giving away", "are transfiguring"],
-                    pasTense: ["enchanted", "repaired", "cursed", "had", "threw", "looked for", "consumed", "used", "took", "hid", "discovered", "found", "gave away", "transfigured"],
-                    presTense: ["enchant", "repair", "curse", "have", "throw", "look for", "find", "discover", "hide", "steal", "consume", "use", "take", "give away", "transfigure"],
-                    fuTense: ["will enchant", "will repair", "will curse", "will have", "will throw", "will look for", "will find", "will discover", "will steal", "will consume", "will use", "will take", "will give away", "will transfigure"]
+                    conTense: ["are selling","are destroying","are enchanting","are repairing","are cursing", "are having", "are throwing", "are looking for", "are consuming", "are using", "are taking", "are hiding", "are discovering", "are finding", "are giving away", "are transfiguring"],
+                    pasTense: ["sold", "destroyed", "enchanted", "repaired", "cursed", "had", "threw", "looked for", "consumed", "used", "took", "hid", "discovered", "found", "gave away", "transfigured"],
+                    presTense: ["sell", "destroy", "enchant", "repair", "curse", "have", "throw", "look for", "find", "discover", "hide", "steal", "consume", "use", "take", "give away", "transfigure"],
+                    fuTense: ["will sell", "will destroy", "will enchant", "will repair", "will curse", "will have", "will throw", "will look for", "will find", "will discover", "will steal", "will consume", "will use", "will take", "will give away", "will transfigure"]
                 },
                 medium: {
-                    conTense: ["are cursing", "are having", "are looking for", "are consuming", "are using", "are hiding", "are discovering", "are finding", "are giving away", "are transfiguring"],
-                    pasTense: ["cursed", "had", "hid", "looked for", "used", "discovered", "found", "consumed", "stole", "gave away", "transfigured"],
-                    presTense: ["curse", "have", "look for", "find", "discover", "hide", "steal", "use", "take", "give away", "transfigure"],
-                    fuTense: ["will curse", "will have", "will throw", "will look for", "will find", "will discover", "will steal", "will use", "will take", "will transfigure"]
+                    conTense: ["are selling","are destroying","are cursing", "are having", "are looking for", "are consuming", "are using", "are hiding", "are discovering", "are finding", "are giving away", "are transfiguring"],
+                    pasTense: ["sold","destroyed", "cursed", "had", "hid", "looked for", "used", "discovered", "found", "consumed", "stole", "gave away", "transfigured"],
+                    presTense: ["sell","destroy", "curse", "have", "look for", "find", "discover", "hide", "steal", "use", "take", "give away", "transfigure"],
+                    fuTense: ["will sell", "will destroy", "will curse", "will have", "will throw", "will look for", "will find", "will discover", "will steal", "will use", "will take", "will transfigure"]
                 },
                 large: {
-                    conTense: ["are cursing", "are looking for", "are discovering", "are finding", "are seeing", "are avoiding", "are seeking"],
-                    pasTense: ["cursed", "looked for", "found", "discovered", "saw", "navigated", "avoided", "sought"],
-                    presTense: ["curse", "look for", "find", "discover", "see", "navigate", "avoid"],
-                    fuTense: ["will curse", "will look for", "will find", "will discover", "will see", "will navigate", "will avoid", "will seek"]
+                    conTense: ["are destroying","are cursing", "are looking for", "are discovering", "are finding", "are seeing", "are avoiding", "are seeking"],
+                    pasTense: ["destroyed", "cursed", "looked for", "found", "discovered", "saw", "navigated", "avoided", "sought"],
+                    presTense: ["destroy", "curse", "look for", "find", "discover", "see", "navigate", "avoid"],
+                    fuTense: ["will destroy", "will curse", "will look for", "will find", "will discover", "will see", "will navigate", "will avoid", "will seek"]
                 }
             },
             noObj: {
-                conTense: ["are having visions", "are performing surgery", "are placing a curse", "are dying", "are panicking", "are laughing", "are eating", "are crying", "are casting a spell", "are performing a ritual", "are resting", "are opening a portal", "are seeing the future", "are exercising", "are doing arts and crafts", "are brewing potions"],
+                conTense: ["are sleeping","are having visions", "are performing surgery", "are placing a curse", "are dying", "are panicking", "are laughing", "are eating", "are crying", "are casting a spell", "are performing a ritual", "are resting", "are opening a portal", "are seeing the future", "are exercising", "are doing arts and crafts", "are brewing potions"],
                 pasTense: ["had visons","performed surgery","died", "panicked", "laughed", "slept", "ate", "cried", "casted a spell", "performed a ritual", "rested", "opened a portal", "saw the future", "exercised", "did arts and crafts", "brewed potions"],
                 presTense: ["have visions","perform surgery", "die", "panick", "laugh", "sleep", "eat", "cry", "cast a spell", "perform rituals", "rest", "open portals", "see the future", "exercise", "do arts and crafts", "brew potions"],
                 fuTense: ["will have visions","will perform surgery","will die", "will panick", "will laugh", "will sleep", "will eat", "will cry", "will cast a spell", "will perform a ritual", "will rest", "will open a portal", "will see the future", "will exercise", "will do arts and crafts", "will brew potions"],
@@ -217,7 +217,7 @@ const dictionary = {
     adverb: {
         nonTemporal: {
             negTone: ["stupidly", "clumsily", "terribly", "inaccurately", "horribly", "absent-mindedly", "weirdly", "stubbornly", "rudely", "loudly"],
-            neuTone: ["carefully", "slowly", "gradually", "rapidly", "automatically", "deliberately", "practically", "almost", "secretly", "openly"],
+            neuTone: ["carefully", "slowly", "gradually", "rapidly", "automatically", "deliberately", "practically", "almost", "nearly", "secretly", "openly"],
             posTone: ["carelessly", "quickly", "intelligently", "skillfully", "wonderfully", "accurately", "politely", "kindly", "gently"]
         },
         temporal: {
@@ -238,7 +238,7 @@ const randBool = () => {
 }
 
 const isCompound = () => {
-    let num = Math.floor((Math.random() * 10));
+    let num = Math.floor((Math.random() * 8));
     if (num == 0) {
         return true;
     }
@@ -399,6 +399,8 @@ const possiblyAddAdjective = (word, tone, isInanimate) => {
             if (word.slice(0, 3) == "The") {
                 adj = adj.slice(0, 1).toUpperCase() + adj.slice(1);
                 return word.slice(0, 3) + " " + adj + " " + word.slice(4);
+            } else if (word.slice(0,1) == word.slice(0,1).toUpperCase()) {
+                adj = adj.slice(0, 1).toUpperCase() + adj.slice(1);
             }
             return adj + " " + word;
         } else {
@@ -657,6 +659,13 @@ const generateSentence = () => {
     return formatSentence(sentence);
 }
 
+const addAnimalIngredients = () => {
+    for (animal of dictionary.noun.animal.singular) {
+        dictionary.noun.thing.nonProper.plural.small.push("eye of " + animal);
+        dictionary.noun.thing.nonProper.plural.small.push("heart of a " + animal);
+    }
+}
+
 
 
 
@@ -664,6 +673,7 @@ const generateSentence = () => {
 
 
 for (let i = 0; i < 50; i++) {
+    addAnimalIngredients();
     console.log(generateSentence());
 }
 
