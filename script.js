@@ -158,47 +158,55 @@ const dictionary = {
             //Needs object (i.e. Looked for - searched for - )
             needsObj: {
                 small: {
+                    conTense: ["is cursing", "is having", "is looking for", "is consuming", "is taking", "is discovering", "is finding", "is giving away", "is transfiguring"],
                     pasTense: ["cursed", "had", "threw", "looked for", "consumed", "used", "took", "hid", "discovered", "found", "gave away", "transfigured"],
                     presTense: ["curses", "has", "throws", "looks for", "finds", "discovers", "hides", "steals", "consumes", "uses", "takes", "gives away", "transfigures"],
                     fuTense: ["will curse", "will have", "will throw", "will look for", "will find", "will discover", "will steal", "will consume", "will use", "will take", "will give away", "will transfigure"]
                 },
                 medium: {
+                    conTense: ["is hiding", "is looking for", "is using", "is discovering", "is finding", "is stealing", "is consuming", "is giving away", "is transfiguring"],
                     pasTense: ["hid", "looked for", "used", "discovered", "found", "consumed", "stole", "gave away", "transfigured"],
                     presTense: ["looks for", "finds", "discovers", "hides", "steals", "uses", "takes", "gives away", "transfigures"],
                     fuTense: ["will throw", "will look for", "will find", "will discover", "will steal", "will use", "will take", "will transfigure"]
                 },
                 large: {
+                    conTense: ["is looking for", "is finding", "is discovering", "is exploring", "is navigating", "is avoiding"],
                     pasTense: ["looked for", "found", "discovered", "saw", "explored", "navigated", "avoided"],
                     presTense: ["looks for", "finds", "discovers", "sees", "explores", "navigates", "avoids"],
                     fuTense: ["will look for", "will find", "will discover", "will see", "will explore", "will navigate", "will avoid"]
                 }
             },
             noObj: {
+                conTense: ["is placing a curse", "is dying", "is panicking", "is laughing", "is eating", "is crying", "is casting a spell", "is performing a ritual", "is resting", "is opening a portal", "is seeing the future", "is exercising", "is doing arts and crafts", "is brewing potions"],
                 pasTense: ["placed a curse", "died", "panicked", "was", "laughed", "slept", "ate", "cried", "casted a spell", "performed a ritual", "rested", "opened a portal", "saw the future", "exercised", "did arts and crafts", "brewed potions"],
                 presTense: ["places a curse", "dies", "panicks", "is", "laughs", "sleeps", "eats", "cries", "casts spells", "performs rituals", "rests", "opens portals", "sees the future", "exercises", "does arts and crafts", "brews potions"],
                 fuTense: ["will place a curse", "will die", "will panick", "will be", "will laugh", "will sleep", "will eat", "will cry", "will cast a spell", "will perform a ritual", "will rest", "will open a portal", "will see the future", "will exercise", "will do arts and crafts", "will brew potions"],
             }
         },
-        //I/you/we/they
+        //I/you/we/they  I am NOT going to use "I" because it is irregular....
         plural: {
             needsObj: {
                 small: {
+                    conTense: ["are cursing", "are having", "are throwing", "are looking for", "are consuming", "are using", "are taking", "are hiding", "are discovering", "are finding", "are giving away", "are transfiguring"],
                     pasTense: ["cursed", "had", "threw", "looked for", "consumed", "used", "took", "hid", "discovered", "found", "gave away", "transfigured"],
                     presTense: ["curse", "have", "throw", "look for", "find", "discover", "hide", "steal", "consume", "use", "take", "give away", "transfigure"],
                     fuTense: ["will curse", "will have", "will throw", "will look for", "will find", "will discover", "will steal", "will consume", "will use", "will take", "will give away", "will transfigure"]
                 },
                 medium: {
+                    conTense: ["are cursing", "are having", "are looking for", "are consuming", "are using", "are hiding", "are discovering", "are finding", "are giving away", "are transfiguring"],
                     pasTense: ["cursed", "had", "hid", "looked for", "used", "discovered", "found", "consumed", "stole", "gave away", "transfigured"],
                     presTense: ["curse", "have", "look for", "find", "discover", "hide", "steal", "use", "take", "give away", "transfigure"],
                     fuTense: ["will curse", "will have", "will throw", "will look for", "will find", "will discover", "will steal", "will use", "will take", "will transfigure"]
                 },
                 large: {
-                    pasTense: ["cursed", "looked for", "found", "discovered", "saw", "navigated", "avoided"],
+                    conTense: ["are cursing", "are looking for", "are discovering", "are finding", "are seeing", "are avoiding", "are seeking"],
+                    pasTense: ["cursed", "looked for", "found", "discovered", "saw", "navigated", "avoided", "sought"],
                     presTense: ["curse", "look for", "find", "discover", "see", "navigate", "avoid"],
-                    fuTense: ["will curse", "will look for", "will find", "will discover", "will see", "will navigate", "will avoid"]
+                    fuTense: ["will curse", "will look for", "will find", "will discover", "will see", "will navigate", "will avoid", "will seek"]
                 }
             },
             noObj: {
+                conTense: ["are placing a curse", "are dying", "are panicking", "are laughing", "are eating", "are crying", "are casting a spell", "are performing a ritual", "are resting", "are opening a portal", "are seeing the future", "are exercising", "are doing arts and crafts", "are brewing potions"],
                 pasTense: ["died", "panicked", "laughed", "slept", "ate", "cried", "casted a spell", "performed a ritual", "rested", "opened a portal", "saw the future", "exercised", "did arts and crafts", "brewed potions"],
                 presTense: ["die", "panick", "laugh", "sleep", "eat", "cry", "cast a spell", "perform rituals", "rest", "open portals", "see the future", "exercise", "do arts and crafts", "brew potions"],
                 fuTense: ["will die", "will panick", "will laugh", "will sleep", "will eat", "will cry", "will cast a spell", "will perform a ritual", "will rest", "will open a portal", "will see the future", "will exercise", "will do arts and crafts", "will brew potions"],
@@ -231,13 +239,15 @@ const randBool = () => {
 
 const randomTense = () => {
     let tense = "presTense";
-    let num = Math.floor(Math.random() * 3);
+    let num = Math.floor(Math.random() * 4);
     if (num == 0) {
         tense = "pasTense";
     } else if (num == 1) {
         tense = "presTense";
-    } else {
+    } else if (num == 2) {
         tense = "fuTense";
+    } else {
+        tense = "conTense";
     }
     return tense;
 }
@@ -399,6 +409,19 @@ const possiblyRandomizeFutureTense = (word) => {
     
 }
 
+const possibleRandomizeContinuousTense = (word) => {
+    if (randBool()) {
+        if (word.includes(" is ")) {
+            let replacers = [" was ", " had been ", " has been ", " hasn't been ", " has not been ", " was not ", " wasn't ", " hadn't been ", " will have been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " should be ", " would be", " could be", " would have been ", " could have been ", " should have been ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
+            return word.replace(" is ", getRandFromArray(replacers));
+        } else {
+            let replacers = [" were ", " had been ", " have been ", " haven't been ", " have not been ", " were not ", " weren't ", " hadn't been ", " will have been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " should be ", " would be ", " could be ", " would have been ", " could have been ", " should have been ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
+            return word.replace(" are ", getRandFromArray(replacers));
+        }
+    }
+    return word;
+}
+
 const generateSentence = () => {
     //Needs to combine a subject and a predicate
     //Needs to keep track of the tense, plurality of subject and the predicate, and choose random words accordingly.
@@ -432,7 +455,12 @@ const generateSentence = () => {
         sentence += " in " + generateArticle(place, false, isPlaceProper) + possiblyAddAdjective(place, getTone(), true);
     }
 
-    sentence = possiblyRandomizeFutureTense(sentence);
+    if (tense == "fuTense") {
+        sentence = possiblyRandomizeFutureTense(sentence);
+    } else if (tense == "conTense") {
+        sentence = possibleRandomizeContinuousTense(sentence);
+    }
+    
 
     return formatSentence(sentence);
 }
