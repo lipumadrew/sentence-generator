@@ -87,7 +87,7 @@ const dictionary = {
         place: {
             //Words that don't need "A"  or the
             proper: {
-                small: ["Hagrid's Hut"],
+                small: ["Hagrid's Hut", "The Room of Requirement"],
                 medium: ["Safeway", "Dracula's castle", "Target", "Hogwarts"],
                 large: ["San Francisco", "New York", "Tokyo", "The Spirit Realm", "Outer Space", "The Underworld", "The Forbidden Forest"],
             },
@@ -95,7 +95,7 @@ const dictionary = {
             nonProper: {
                 small: ["chair", "car", "train", "coffin", "closet", "bathroom", "backpack", "satchel", "locked chest"],
                 medium: ["hut", "basement", "grocery store", "college"],
-                large: ["city", "town", "village", "desert", "forest"]
+                large: ["city", "town", "village", "desert", "forest", "woods", "mountains"]
             },
         },
         //Rather than small, medium, large, I might get more specific...but we'll see
@@ -119,7 +119,7 @@ const dictionary = {
                     //Moveable, hold in hand, throwable even
                     small: ["poison apple", "wand", "broom", "spellbook", "potion", "crystal ball", "halloween candy", "severed head", "eye of newt", "carrot", "human heart", "voodoo doll", "dragon egg", "sword"],
                     //somewhat movable
-                    medium: ["cauldron", "tombstone", "jack-o-lantern", "car", "corpse", "skeleton", "pumpkin"],
+                    medium: ["cauldron", "tombstone", "jack-o-lantern", "corpse", "skeleton", "pumpkin"],
                     //immovable
                     large: ["tree", "monolith", "boulder", "pile of bones", "statue"]
                 },
@@ -283,18 +283,23 @@ const generatePronouns = (identity, isSubjectPlural) => {
 
 
 
-const generateSize = (hasObject) => {
-    if (hasObject) {
-        let num = Math.floor(Math.random() * 3);
-        if (num == 0) {
-            return "small";
-        } else if (num == 1) {
-            return "medium";
-        } else {
-            return "large";
-        }
+const generateSize = () => {
+    let num = Math.floor(Math.random() * 3);
+    if (num == 0) {
+        return "small";
+    } else if (num == 1) {
+        return "medium";
     } else {
-        return "";
+        return "large";
+    }
+    
+}
+
+const getPlace = (isPlaceProper, objectSize) => {
+    if (isPlaceProper) {
+        return getRandFromArray(dictionary.noun.place.proper[objectSize]);
+    } else {
+        return getRandFromArray(dictionary.noun.place.nonProper[objectSize]);
     }
 }
 
@@ -309,13 +314,27 @@ const generateSentence = () => {
     let identity = randomIdentity();
     let pronoun = generatePronouns(identity, isSubjectPlural);
     let hasObject = randBool();
-    let objectSize = generateSize(hasObject);
+    let objectSize = generateSize();
     let isObjectProper = randBool();
     let isObjectPlural = randBool();
 
+    let hasPlace = randBool();
+    let isPlaceProper = randBool();
+
+    let place = null;
+
     let subject = generateSubject(isSubjectPlural, identity, isSubjectProper);
     let predicate = generatePredicate(tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper);
-    return generateArticle(subject, isSubjectPlural, isSubjectProper) + subject + " " + predicate;
+    let sentence = generateArticle(subject, isSubjectPlural, isSubjectProper) + subject + " " + predicate;
+
+    if (hasPlace) {
+        
+        
+        place = getPlace(isPlaceProper, objectSize);
+        sentence += " in " + generateArticle(place, false, isPlaceProper) + place
+    }
+
+    return sentence;
 }
 
 
