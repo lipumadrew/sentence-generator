@@ -121,7 +121,7 @@ const dictionary = {
                     //somewhat movable
                     medium: ["cauldron", "tombstone", "jack-o-lantern", "car", "corpse", "skeleton", "pumpkin"],
                     //immovable
-                    large: ["tree", "monolith", "boulder", "ritual circle", "bonfire", "pile of bones"]
+                    large: ["tree", "monolith", "boulder", "pile of bones", "statue"]
                 },
                 plural: {
                     small: ["magic mushrooms", "potions", "eggs", "crystal balls", "bones", "slugs", "spiders", "cobwebs", "scrolls", "halloween candy", "hippogriff feathers", "entrails"],
@@ -168,9 +168,9 @@ const dictionary = {
                     fuTense: ["will throw", "will look for", "will find", "will discover", "will steal", "will use", "will take", "will transfigure"]
                 },
                 large: {
-                    pasTense: ["looked for", "found", "discovered", "saw"],
-                    presTense: ["looks for", "finds", "discovers", "sees"],
-                    fuTense: ["will look for", "will find", "will discover", "will see"]
+                    pasTense: ["looked for", "found", "discovered", "saw", "climbed"],
+                    presTense: ["looks for", "finds", "discovers", "sees", "climbs"],
+                    fuTense: ["will look for", "will find", "will discover", "will see", "will climb"]
                 }
             },
             noObj: {
@@ -193,9 +193,9 @@ const dictionary = {
                     fuTense: ["will throw", "will look for", "will find", "will discover", "will steal", "will use", "will take", "will transfigure"]
                 },
                 large: {
-                    pasTense: ["looked for", "found", "discovered", "saw"],
-                    presTense: ["look for", "find", "discover", "see"],
-                    fuTense: ["will look for", "will find", "will discover", "will see"]
+                    pasTense: ["looked for", "found", "discovered", "saw", "climbed"],
+                    presTense: ["look for", "find", "discover", "see", "climbs"],
+                    fuTense: ["will look for", "will find", "will discover", "will see", "will climb"]
                 }
             },
             noObj: {
@@ -281,6 +281,8 @@ const generatePronouns = (identity, isSubjectPlural) => {
     return pronouns;
 }
 
+
+
 const generateSize = (hasObject) => {
     if (hasObject) {
         let num = Math.floor(Math.random() * 3);
@@ -309,6 +311,30 @@ const generateSentence = () => {
     let hasObject = randBool();
     let objectSize = generateSize(hasObject);
     let isObjectProper = randBool();
+
+
+}
+
+
+//This can be modified to include qualifiers like "every", "some", etc.....
+const generateArticle = (object, objectPlurality, properProperty) => {
+    let vowels = "aeiouAEIOU";
+    if (properProperty == "proper") {
+        return "";
+    } else {
+        if (objectPlurality == "plural") {
+            let articles = ["the ", ""]
+            return getRandFromArray(articles);
+        } else {
+            let articles = ["the "]
+            if (vowels.includes(object[0])) {
+                articles.push("an ")
+            } else {
+                articles.push("a ")
+            }
+            return getRandFromArray(articles);
+        }
+    }
 }
 
 
@@ -326,7 +352,7 @@ const generateSubject = (isSubjectPlural, identity, isProper) => {
     }
 }
 
-const generatePredicate = (tense, isPredicatePlural, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper) => {
+const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper) => {
     //Needs to generate a predicate
     let objectPlurality
     let properProperty;
@@ -350,7 +376,7 @@ const generatePredicate = (tense, isPredicatePlural, isSubjectPlural, hasObject,
             // verb the/some/ objects
             verb = getRandFromArray(dictionary.verb.plural.needsObj[objectSize][tense])
             object = getRandFromArray(dictionary.noun.thing[properProperty][objectPlurality][objectSize])
-            return verb + " " + object;
+            return verb + " " + generateArticle(object, objectPlurality, properProperty) + object;
         } else {
             verb = getRandFromArray(dictionary.verb.plural.noObj[tense]);
             return verb;
@@ -361,9 +387,10 @@ const generatePredicate = (tense, isPredicatePlural, isSubjectPlural, hasObject,
             // verb a/the/an object
             verb = getRandFromArray(dictionary.verb.singularThird.needsObj[objectSize][tense]);
             object = getRandFromArray(dictionary.noun.thing[properProperty][objectPlurality][objectSize])
+            return verb + " " + generateArticle(object, objectPlurality, properProperty) + object
         } else {
             verb = getRandFromArray(dictionary.verb.singularThird.noObj[tense])
-            returb
+            return verb;
         }
     }
 }
@@ -374,8 +401,5 @@ const generatePredicate = (tense, isPredicatePlural, isSubjectPlural, hasObject,
 
 
 for (let i = 0; i < 50; i++) {
-    let objSize = generateSize(true);
-    verb = getRandFromArray(dictionary.verb.singularThird.needsObj[objSize]["presTense"])
-    object = getRandFromArray(dictionary.noun.thing["nonProper"]["plural"][objSize])
-    console.log(verb + " " + object);
+    
 }
