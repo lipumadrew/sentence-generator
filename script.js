@@ -93,9 +93,9 @@ const dictionary = {
             },
             //Words that need "A"
             nonProper: {
-                small: ["chair", "car", "train", "coffin", "closet", "bathroom", "backpack", "satchel", "locked chest"],
-                medium: ["hut", "basement", "grocery store", "college"],
-                large: ["city", "town", "village", "desert", "forest", "woods", "mountains"]
+                small: ["chair", "car", "train", "coffin", "closet", "backpack", "satchel", "locked chest"],
+                medium: ["hut", "basement", "grocery store", "college", "secret passage", "classroom", "bathroom"],
+                large: ["city", "town", "village", "desert", "forest", "ruin", "temple",]
             },
         },
         //Rather than small, medium, large, I might get more specific...but we'll see
@@ -138,14 +138,14 @@ const dictionary = {
     },
     adjective: {
         person: {
-            negTone: ["delicious", "intelligent", "beautiful", "amazing", "hilarious", "great", "magical", "mythical", "generous", "kind", "attractive"],
-            neuTone: ["green", "blue", "purple", "glowing", "tall", "short", "boring", "normal", "average"],
-            posTone: ["stupid", "ugly", "smelly", "disgusting", "horrible", "outrageous", "awful", "weird", "mean", "selfish", "evil", "repulsive"]
+            posTone: ["delicious", "intelligent", "beautiful", "amazing", "hilarious", "great", "magical", "mythical", "generous", "kind", "attractive"],
+            neuTone: ["tall", "short", "boring", "normal", "average"],
+            negTone: ["stupid", "ugly", "smelly", "disgusting", "horrible", "outrageous", "awful", "weird", "mean", "selfish", "evil", "repulsive"]
         },
         nonPerson: {
-            negTone: ["delicious", "beautiful", "amazing", "hilarious", "great", "magical", "mythical"],
+            posTone: ["delicious", "beautiful", "amazing", "hilarious", "great", "magical", "mythical"],
             neuTone: ["green", "blue", "purple", "glowing", "tall", "short", "boring", "normal", "average"],
-            posTone: ["stupid", "ugly", "smelly", "disgusting", "horrible", "outrageous", "awful", "weird", "mean", "evil", "repulsive"]
+            negTone: ["stupid", "ugly", "smelly", "disgusting", "horrible", "outrageous", "awful", "weird", "mean", "evil", "repulsive"]
         }
     },
 
@@ -303,6 +303,55 @@ const getPlace = (isPlaceProper, objectSize) => {
     }
 }
 
+// one in four chance
+const hasAdjective = () => {
+    let num = Math.floor(Math.random() * 4)
+    if (num == 0) {
+        return true;
+    }
+    return false;
+}
+
+const getAdjective = (tone, isInanimate) => {
+    if (isInanimate) {
+        if (tone == "posTone") {
+            return getRandFromArray(dictionary.adjective.nonPerson.posTone);
+        } else if (tone == "neuTone") {
+            return getRandFromArray(dictionary.adjective.nonPerson.neuTone);
+        } else {
+            return getRandFromArray(dictionary.adjective.nonPerson.negTone);
+        }
+    } else {
+        if (tone == "posTone") {
+            return getRandFromArray(dictionary.adjective.person.posTone);
+        } else if (tone == "neuTone") {
+            return getRandFromArray(dictionary.adjective.person.neuTone);
+        } else {
+            return getRandFromArray(dictionary.adjective.person.negTone);
+        }
+    }
+}
+
+const getTone = () => {
+    let num = Math.floor(Math.random() * 3);
+    if (num == 0) {
+        return "posTone";
+    } else if (num == 1) {
+        return "neuTone";
+    } else {
+        return "negTone";
+    }
+}
+
+const possiblyAddAdjective = (word, tone, isInanimate) => {
+    if (hasAdjective()) {
+        let adj = getAdjective(tone, isInanimate)
+        return adj + " " + word;
+    } else {
+        return word;
+    }
+}
+
 const generateSentence = () => {
     //Needs to combine a subject and a predicate
     //Needs to keep track of the tense, plurality of subject and the predicate, and choose random words accordingly.
@@ -323,13 +372,14 @@ const generateSentence = () => {
 
     let place = null;
 
+
     let subject = generateSubject(isSubjectPlural, identity, isSubjectProper);
+    subject = possiblyAddAdjective(subject, getTone(), false);
+    
     let predicate = generatePredicate(tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper);
     let sentence = generateArticle(subject, isSubjectPlural, isSubjectProper) + subject + " " + predicate;
 
     if (hasPlace) {
-        
-        
         place = getPlace(isPlaceProper, objectSize);
         sentence += " in " + generateArticle(place, false, isPlaceProper) + place
     }
