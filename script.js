@@ -237,6 +237,14 @@ const randBool = () => {
     return false;
 }
 
+const isCompound = () => {
+    let num = Math.floor((Math.random() * 10));
+    if (num == 0) {
+        return true;
+    }
+    return false;
+}
+
 const randomTense = () => {
     let tense = "presTense";
     let num = Math.floor(Math.random() * 4);
@@ -400,23 +408,40 @@ const possiblyAddAdjective = (word, tone, isInanimate) => {
     return word;
 }
 
-const possiblyRandomizeFutureTense = (word) => {
-    if (randBool()) {
-        let replacers = [" will not ", " won't ", " can't ", " didn't ", " wouldn't ", " would ", " could ", " should "];
-    return word.replace(" will ", getRandFromArray(replacers));
-    }
+const possiblyRandomizeFutureTense = (word, isVerbTonePositive, alwaysRandomize) => {
+    if (randBool() || alwaysRandomize) {
+        if (isVerbTonePositive) {
+            let replacers = [" may ", " might ", " would ", " could ", " should "];
+            return word.replace(" will ", getRandFromArray(replacers));
+        } else {
+            let replacers = [" will not ", " won't ", " can't ", " didn't ", " wouldn't "]
+            return word.replace(" will ", getRandFromArray(replacers));
+        };
+        
+    };
     return word;
     
 }
 
-const possibleRandomizeContinuousTense = (word) => {
-    if (randBool()) {
+const possibleRandomizeContinuousTense = (word, isVerbTonePositive, alwaysRandomize) => {
+    if (randBool() || alwaysRandomize) {
         if (word.includes(" is ")) {
-            let replacers = [" was ", " had been ", " has been ", " hasn't been ", " has not been ", " was not ", " wasn't ", " hadn't been ", " will have been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " should be ", " would be ", " could be ", " would have been ", " could have been ", " should have been ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
-            return word.replace(" is ", getRandFromArray(replacers));
+            if (isVerbTonePositive) {
+                let replacers = [" was ", " had been ", " has been ", " will have been ", " should be ", " would be ", " could be ", " would have been ", " could have been ", " should have been "];
+                return word.replace(" is ", getRandFromArray(replacers));
+            } else {
+                let replacers = [" hasn't been ", " has not been ", " was not ", " wasn't ", " hadn't been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
+                return word.replace(" is ", getRandFromArray(replacers));
+            }
+            
         } else {
-            let replacers = [" were ", " had been ", " have been ", " haven't been ", " have not been ", " were not ", " weren't ", " hadn't been ", " will have been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " should be ", " would be ", " could be ", " would have been ", " could have been ", " should have been ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
-            return word.replace(" are ", getRandFromArray(replacers));
+            if (isVerbTonePositive) {
+                let replacers = [" were ", " had been ", " have been ", " will have been ", " should be ", " would be ", " could be ", " would have been ", " could have been ", " should have been "];
+                return word.replace(" are ", getRandFromArray(replacers));
+            } else {
+                let replacers = [" haven't been ", " have not been ", " were not ", " weren't ", " hadn't been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
+                return word.replace(" are ", getRandFromArray(replacers));
+            }
         }
     }
     return word;
@@ -430,53 +455,10 @@ const isProper = () => {
     return false;
 }
 
-const isCompound = () => {
-    
-}
-
-const generateSentence = () => {
-    //Needs to combine a subject and a predicate
-    //Needs to keep track of the tense, plurality of subject and the predicate, and choose random words accordingly.
-    
-    let tense = randomTense();
-    let isSubjectPlural = randBool();
-    let isPredicatePlural = randBool();
-    let isSubjectProper = isProper();
-    let identity = randomIdentity();
-    let pronoun = generatePronouns(identity, isSubjectPlural);
-    let hasObject = randBool();
-    let objectSize = generateSize();
-    let isObjectProper = randBool();
-    let isObjectPlural = randBool();
-
-    let hasPlace = randBool();
-    let isPlaceProper = randBool();
-    let subjectTone = getTone();
-    let predicateTone = getTone();
-    let place = null;
 
 
-    let subject = generateSubject(isSubjectPlural, identity, isSubjectProper);
-    subject = possiblyAddAdjective(subject, subjectTone, false);
-    subject = possiblyAddAdverb(subject, subjectTone, getTemporal());
-    
-    let predicate = generatePredicate(tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper, predicateTone);
-    let sentence = generateArticle(subject, isSubjectPlural, isSubjectProper) + subject + " " + predicate;
 
-    if (hasPlace) {
-        place = getPlace(isPlaceProper, objectSize);
-        sentence += " in " + generateArticle(place, false, isPlaceProper) + possiblyAddAdjective(place, predicateTone, true);
-    }
 
-    if (tense == "fuTense") {
-        sentence = possiblyRandomizeFutureTense(sentence);
-    } else if (tense == "conTense") {
-        sentence = possibleRandomizeContinuousTense(sentence);
-    }
-    
-    console.log()
-    return formatSentence(sentence);
-}
 
 
 //This can be modified to include qualifiers like "every", "some", etc.....
@@ -561,6 +543,121 @@ const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObje
         }
     }
 }
+
+//This will get called inside the generateSentence function, but how to generate another sentence? probably use generate predicate only, but then the pronouns are subject
+const makeSentenceCompound = (isVerbTonePositive, sentence, pronounsArr, isSubjectPlural, tense) => {
+    //Bsically generate another sentence but use the pronouns that were generated instead of the subject.
+    //decide if we want the same verbTone for the second sentence, or a different one, then choose the connecting word appropriately
+    //"although", "but" , "and" , "in addition", etc
+    let isToneSame = randBool();
+
+    if (pronounsArr[0] == "they" && isSubjectPlural == false) {
+        isSubjectPlural = true;
+    }
+
+
+
+    if (isToneSame) {
+        //append a sentence that is also positive/negative
+        //connecting word plus generatePredicate? Might have to fix the spaces too
+        let connectingWords = [", and", ". In addition,", ". Also,"];
+        if (isVerbTonePositive) {
+            //use a positive tone
+            let newPredicate = generatePredicate(tense, isSubjectPlural, randBool(), generateSize(), randBool(), randBool(), getTone());
+            if (tense == "fuTense") {
+                newPredicate = possiblyRandomizeFutureTense(newPredicate, true, true);
+            } else if (tense == "conTense") {
+                newPredicate = possibleRandomizeContinuousTense(newPredicate, true, true);
+            }
+            return sentence + getRandFromArray(connectingWords) + " " + pronounsArr[0] + " " + newPredicate;
+        } else {
+            // Use a negative tone
+            let newPredicate = generatePredicate(tense, isSubjectPlural, randBool(), generateSize(), randBool(), randBool(), getTone());
+            if (tense == "fuTense") {
+                newPredicate = possiblyRandomizeFutureTense(newPredicate, false, true);
+            } else if (tense == "conTense") {
+                newPredicate = possibleRandomizeContinuousTense(newPredicate, false, true);
+            }
+            return sentence + getRandFromArray(connectingWords) + " " + pronounsArr[0] + " " + newPredicate;
+
+        }
+    } else {
+
+        //append a sentence that is the opposite tone
+        let connectingWords = [", but", ". However,", ". Nevertheless,"];
+        if (isVerbTonePositive) {
+            //use a negative tone
+            let newPredicate = generatePredicate(tense, isSubjectPlural, randBool(), generateSize(), randBool(), randBool(), getTone());
+            if (tense == "fuTense") {
+                newPredicate = possiblyRandomizeFutureTense(newPredicate, false, true);
+            } else if (tense == "conTense") {
+                newPredicate = possibleRandomizeContinuousTense(newPredicate, false, true);
+            }
+            return sentence + getRandFromArray(connectingWords) + " " + pronounsArr[0] + " " + newPredicate;
+        } else {
+            // Use a positive tone
+            let newPredicate = generatePredicate(tense, isSubjectPlural, randBool(), generateSize(), randBool(), randBool(), getTone());
+            if (tense == "fuTense") {
+                newPredicate = possiblyRandomizeFutureTense(newPredicate, true, true);
+            } else if (tense == "conTense") {
+                newPredicate = possibleRandomizeContinuousTense(newPredicate, true, true);
+            }
+            return sentence + getRandFromArray(connectingWords) + " " + pronounsArr[0] + " " + newPredicate;
+        }
+    }
+}
+
+//I'm realizing that for the tone, the adjective tone isn't what dictates whether we want "however" versus "and" in a compound sentence.
+//I think the distinction actually comes from the positivity/negativity of the verb, which I control inside the article function
+const generateSentence = () => {
+    //Needs to combine a subject and a predicate
+    //Needs to keep track of the tense, plurality of subject and the predicate, and choose random words accordingly.
+    
+    let tense = randomTense();
+    let isSubjectPlural = randBool();
+    let isPredicatePlural = randBool();
+    let isSubjectProper = isProper();
+    let identity = randomIdentity();
+    let pronouns = generatePronouns(identity, isSubjectPlural);
+    let hasObject = randBool();
+    let objectSize = generateSize();
+    let isObjectProper = randBool();
+    let isObjectPlural = randBool();
+    let isSentenceCompound = isCompound();
+    let isVerbTonePositive = randBool();
+    let hasPlace = randBool();
+    let isPlaceProper = randBool();
+    let subjectTone = getTone();
+    let predicateTone = getTone();
+    let place = null;
+    
+
+    let subject = generateSubject(isSubjectPlural, identity, isSubjectProper);
+    subject = possiblyAddAdjective(subject, subjectTone, false);
+    subject = possiblyAddAdverb(subject, subjectTone, getTemporal());
+    
+    let predicate = generatePredicate(tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper, predicateTone);
+    let sentence = generateArticle(subject, isSubjectPlural, isSubjectProper) + subject + " " + predicate;
+
+    if (hasPlace) {
+        place = getPlace(isPlaceProper, objectSize);
+        sentence += " in " + generateArticle(place, false, isPlaceProper) + possiblyAddAdjective(place, predicateTone, true);
+    }
+
+    if (tense == "fuTense") {
+        sentence = possiblyRandomizeFutureTense(sentence, isVerbTonePositive, false);
+    } else if (tense == "conTense") {
+        sentence = possibleRandomizeContinuousTense(sentence, isVerbTonePositive, false);
+    }
+
+    if (isSentenceCompound) {
+        sentence = makeSentenceCompound(isVerbTonePositive, sentence, pronouns, isSubjectPlural, tense);
+    }
+    
+    return formatSentence(sentence);
+}
+
+
 
 
 //Testing
