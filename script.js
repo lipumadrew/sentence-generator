@@ -311,26 +311,29 @@ const generateSentence = () => {
     let hasObject = randBool();
     let objectSize = generateSize(hasObject);
     let isObjectProper = randBool();
+    let isObjectPlural = randBool();
 
-
+    let subject = generateSubject(isSubjectPlural, identity, isSubjectProper);
+    let predicate = generatePredicate(tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper);
+    return generateArticle(subject, isSubjectPlural, isSubjectProper) + subject + " " + predicate;
 }
 
 
 //This can be modified to include qualifiers like "every", "some", etc.....
-const generateArticle = (object, objectPlurality, properProperty) => {
+const generateArticle = (object, isObjectPlural, isObjectProper) => {
     let vowels = "aeiouAEIOU";
-    if (properProperty == "proper") {
+    if (isObjectProper) {
         return "";
     } else {
-        if (objectPlurality == "plural") {
+        if (isObjectPlural) {
             let articles = ["the ", ""]
             return getRandFromArray(articles);
         } else {
             let articles = ["the "]
             if (vowels.includes(object[0])) {
-                articles.push("an ")
+                articles.push("an ");
             } else {
-                articles.push("a ")
+                articles.push("a ");
             }
             return getRandFromArray(articles);
         }
@@ -358,7 +361,7 @@ const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObje
     let properProperty;
     let object;
     let verb;
-    let
+    
     if (isObjectProper) {
         properProperty = "proper";
     } else {
@@ -376,7 +379,7 @@ const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObje
             // verb the/some/ objects
             verb = getRandFromArray(dictionary.verb.plural.needsObj[objectSize][tense])
             object = getRandFromArray(dictionary.noun.thing[properProperty][objectPlurality][objectSize])
-            return verb + " " + generateArticle(object, objectPlurality, properProperty) + object;
+            return verb + " " + generateArticle(object, isObjectPlural, isObjectProper) + object;
         } else {
             verb = getRandFromArray(dictionary.verb.plural.noObj[tense]);
             return verb;
@@ -387,7 +390,7 @@ const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObje
             // verb a/the/an object
             verb = getRandFromArray(dictionary.verb.singularThird.needsObj[objectSize][tense]);
             object = getRandFromArray(dictionary.noun.thing[properProperty][objectPlurality][objectSize])
-            return verb + " " + generateArticle(object, objectPlurality, properProperty) + object
+            return verb + " " + generateArticle(object, isObjectPlural, isObjectProper) + object
         } else {
             verb = getRandFromArray(dictionary.verb.singularThird.noObj[tense])
             return verb;
@@ -399,7 +402,7 @@ const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObje
 //Testing
 
 
-
 for (let i = 0; i < 50; i++) {
-    
+    console.log(generateSentence());
 }
+
