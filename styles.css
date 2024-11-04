@@ -1,17 +1,51 @@
-body {
-    background-image: url('./balint-miko-kCIj-cP1uAE-unsplash.jpg');
+html {
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
 }
 
-p {
+body {
+    background-image: url('./balint-miko-kCIj-cP1uAE-unsplash.jpg');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+}
+
+a {
+    color: black;
+}
+
+#sentence-container {
+    
+    display: flex;
+    
+}
+
+#random-sentence-p{
     font-size: 2rem;
     display: inline-block;
-    margin: 30% auto 0px auto;
-    background-color: hsla(0, 22%, 85%, 0.527);
+    background-color: hsla(0, 0%, 100%, 0.7);
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    padding: 0px 5px;
 }
 
 #generate-button {
     font-size:  1.5rem;
     width: 500px;
-    margin: 0px auto;
-    display: block;
+    margin: 1.5rem 0;
+    border: none;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+
+#generate-button:hover {
+    cursor: pointer;
+}
+
+#photo-credit {
+    background-color: hsla(0, 0%, 100%, 0.7);
 }
