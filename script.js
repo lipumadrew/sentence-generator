@@ -8,7 +8,7 @@ const dictionary = {
         },
         person: {
             singular: {
-                //Words that don't need "A" 
+                //Words that don't need "A"
                 proper: {
                     feminine: ["she", "Hermione Granger", "The Wicked Witch", "Elvira", "Wednesday Addams", "Hillary Clinton","Moaning Myrtle", "Barbie","Lady Gaga", "Ellen Degeneres", "Yennefer", "Triss", "Ciri", "Oprah"],
                     masculine: ["he", "Harry Potter", "Ron Weasley", "Hagrid", "Dracula", "Donald Trump", "Dumbledore", "The Devil", "Joe Biden", "Batman", "Spiderman", "Voldemort", "Frankenstein", "Geralt", "Tom Riddle"],
@@ -23,7 +23,7 @@ const dictionary = {
             },
             //Words that don't need "A"
             //plural words behave the same even if they are proper, pronouns are always "they, we or you"
-            plural: ["doctors", "spirits", "demons", "ghouls", "ghosts", "goblin", "dementors", "death eaters", "creatures", "shadow figures", "apparitions", "witches", "sorceresses", "occultists", "succubi", "women", "ladies", "girls", "wizards", "men", "guys", "dudes", "people", "undead", "skeletons", "zombies", "vampires", "werewolves", "software-engineers", "college students", "necromancers", "groundskeepers"]
+            plural: ["doctors", "spirits", "demons", "ghouls", "ghosts", "goblins", "dementors", "death eaters", "creatures", "shadow figures", "apparitions", "witches", "sorceresses", "occultists", "succubi", "women", "ladies", "girls", "wizards", "men", "guys", "dudes", "people", "undead", "skeletons", "zombies", "vampires", "werewolves", "software-engineers", "college students", "necromancers", "groundskeepers"]
         },
         place: {
             //Words that don't need "A"  or the
@@ -70,7 +70,7 @@ const dictionary = {
                     large: ["trees", "monoliths", "boulders", "bone piles", "statues", "monuments", "buildings", "spires", "tar pits", "ritual sites", "altars", "cataclysms", "interdimensional rifts"]
                 },
             }
-        
+
         },
     },
     adjective: {
@@ -254,12 +254,12 @@ const getTemporal = () => {
     } else {
         return "nonTemporal";
     }
-} 
+}
 
 const possiblyAddAdverb = (word, tone, temporal) => {
     if (hasAdverb()) {
         return word + " " + getRandFromArray(dictionary.adverb[temporal][tone]);
-    } 
+    }
     return word;
 }
 
@@ -274,7 +274,7 @@ const generateSize = () => {
     } else {
         return "large";
     }
-    
+
 }
 
 const getPlace = (isPlaceProper, objectSize) => {
@@ -356,10 +356,10 @@ const possiblyRandomizeFutureTense = (word, isVerbTonePositive, alwaysRandomize)
             let replacers = [" will not ", " won't ", " can't ", " didn't ", " wouldn't "]
             return word.replace(" will ", getRandFromArray(replacers));
         };
-        
+
     };
     return word;
-    
+
 }
 
 const possibleRandomizeContinuousTense = (word, isVerbTonePositive, alwaysRandomize) => {
@@ -372,7 +372,7 @@ const possibleRandomizeContinuousTense = (word, isVerbTonePositive, alwaysRandom
                 let replacers = [" hasn't been ", " has not been ", " was not ", " wasn't ", " hadn't been ", " wouldn't be ", " couldn't be ", " shouldn't be ", " wouldn't have been ", " couldn't have been ", " shouldn't have been "];
                 return word.replace(" is ", getRandFromArray(replacers));
             }
-            
+
         } else {
             if (isVerbTonePositive) {
                 let replacers = [" were ", " had been ", " have been ", " will have been ", " should be ", " would be ", " could be ", " would have been ", " could have been ", " should have been "];
@@ -444,7 +444,7 @@ const generatePredicate = (tense, isSubjectPlural, hasObject, objectSize, isObje
     let properProperty;
     let object;
     let verb;
-    
+
     if (isObjectProper) {
         properProperty = "proper";
     } else {
@@ -551,7 +551,7 @@ const makeSentenceCompound = (isVerbTonePositive, sentence, pronounsArr, isSubje
 const generateSentence = () => {
     //Needs to combine a subject and a predicate
     //Needs to keep track of the tense, plurality of subject and the predicate, and choose random words accordingly.
-    
+
     let tense = randomTense();
     let isSubjectPlural = randBool();
     let isPredicatePlural = randBool();
@@ -569,12 +569,12 @@ const generateSentence = () => {
     let subjectTone = getTone();
     let predicateTone = getTone();
     let place = null;
-    
+
 
     let subject = generateSubject(isSubjectPlural, identity, isSubjectProper);
     subject = possiblyAddAdjective(subject, subjectTone, false);
     subject = possiblyAddAdverb(subject, subjectTone, getTemporal());
-    
+
     let predicate = generatePredicate(tense, isSubjectPlural, hasObject, objectSize, isObjectPlural, isObjectProper, predicateTone);
     let sentence = generateArticle(subject, isSubjectPlural, isSubjectProper) + subject + " " + predicate;
 
@@ -592,7 +592,7 @@ const generateSentence = () => {
     if (isSentenceCompound) {
         sentence = makeSentenceCompound(isVerbTonePositive, sentence, pronouns, isSubjectPlural, tense);
     }
-    
+
     return formatSentence(sentence);
 }
 
@@ -615,5 +615,3 @@ for (let i = 0; i < 50; i++) {
 }
 
 //Potentially use datamuse API to add words! Will have to do some research!
-
-
