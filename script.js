@@ -606,12 +606,19 @@ const addAnimalIngredients = () => {
 
 
 
-//Testing
 
 
-for (let i = 0; i < 50; i++) {
-    addAnimalIngredients();
-    console.log(generateSentence());
+
+addAnimalIngredients();
+
+
+let displayMessage = () => {
+    let randomSentence = generateSentence();
+    console.log("For testing: " + randomSentence);
+    document.getElementById("random-sentence-div").innerHTML = randomSentence;
 }
+
+let generateSentenceButton = document.getElementById("generate-button");
+generateSentenceButton.onclick = displayMessage;
 
 //Potentially use datamuse API to add words! Will have to do some research!
