@@ -614,7 +614,6 @@ addAnimalIngredients();
 
 let displayMessage = () => {
     let randomSentence = generateSentence();
-    console.log("For testing: " + randomSentence);
     document.getElementById("random-sentence-div").innerHTML = randomSentence;
 }
 
