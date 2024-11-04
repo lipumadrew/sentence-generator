@@ -1,3 +1,17 @@
 body {
     background-image: url('./balint-miko-kCIj-cP1uAE-unsplash.jpg');
 }
+
+p {
+    font-size: 2rem;
+    display: inline-block;
+    margin: 30% auto 0px auto;
+    background-color: hsla(0, 22%, 85%, 0.527);
+}
+
+#generate-button {
+    font-size:  1.5rem;
+    width: 500px;
+    margin: 0px auto;
+    display: block;
+}
